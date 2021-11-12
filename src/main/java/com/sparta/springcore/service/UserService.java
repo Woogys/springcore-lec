@@ -27,7 +27,7 @@ public class UserService {
 	private final KakaoOAuth2 kakaoOAuth2;
 	private final AuthenticationManager authenticationManager;
 
-	public void registerUser(SignupRequestDto requestDto) {
+	public User registerUser(SignupRequestDto requestDto) {
 		String username = requestDto.getUsername();
 		// 회원 ID 중복 확인
 		Optional<User> found = userRepository.findByUsername(username);
@@ -49,7 +49,8 @@ public class UserService {
 
 		User user = new User(username, password, email, role);
 		userRepository.save(user);
-	}
+        return user;
+    }
 
 	public void kakaoLogin(String authorizedCode) {
 		// 카카오 OAuth2 를 통해 카카오 사용자 정보 조회
